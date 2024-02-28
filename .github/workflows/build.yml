@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - "README.md"
+      - "**.README.md"
 
 env:
   misans_download_url: https://hyperos.mi.com/font-download
@@ -26,7 +26,7 @@ jobs:
     - name: Download `MiSans`
       run: |
         echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
-        mkdir -p ./tmp/ ./MiSans/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
+        mkdir -p ./tmp/ ./MiSans/ ./FiraCode-Nerd/ ./Sarasa-Gothic/ ./LxgwWenKai/ ./Source-Han-Serif/
         wget -P ./tmp/ "${misans_download_url}/MiSans.zip"
         unzip -o ./tmp/MiSans.zip -d ./tmp/
         rm -rf ./MiSans/*
@@ -46,97 +46,97 @@ jobs:
         git add . && git commit -m "MiSans 字体更新于 ${update_version}" || exit 0
         git push -f
 
-    - name: Download `FiraCode`
+    - name: Download `FiraCode-Nerd`
       run: |
-        mkdir -p ./tmp/FiraCode/
+        mkdir -p ./tmp/FiraCode-Nerd/
         firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
-        unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode/
-        rm -rf ./FiraCode/*
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Bold.ttf "./FiraCode/FiraCode Nerd Font Mono Bold.ttf"
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Light.ttf "./FiraCode/FiraCode Nerd Font Mono Light.ttf"
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Regular.ttf "./FiraCode/FiraCode Nerd Font Mono.ttf"
+        unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode-Nerd/
+        rm -rf ./FiraCode-Nerd/*
+        mv -f ./tmp/FiraCode-Nerd/FiraCodeNerdFontMono-Bold.ttf "./FiraCode-Nerd/FiraCode Nerd Font Mono Bold.ttf"
+        mv -f ./tmp/FiraCode-Nerd/FiraCodeNerdFontMono-Light.ttf "./FiraCode-Nerd/FiraCode Nerd Font Mono Light.ttf"
+        mv -f ./tmp/FiraCode-Nerd/FiraCodeNerdFontMono-Regular.ttf "./FiraCode-Nerd/FiraCode Nerd Font Mono.ttf"
 
-    - name: zip `FiraCode` and push
+    - name: zip `FiraCode-Nerd` and push
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./FiraCode/FiraCode.zip ./FiraCode/
+          zip -qq -r ./FiraCode-Nerd/FiraCode-Nerd.zip ./FiraCode-Nerd/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更新 FiraCode 字体至 v${firacode_version}" || exit 0
+        git add . && git commit -m "更新 FiraCode Nerd 字体至 v${firacode_version}" || exit 0
         git push -f
 
-    - name: Download `Sarasa`
+    - name: Download `Sarasa-Gothic`
       run: |
-        mkdir -p ./tmp/Sarasa/
+        mkdir -p ./tmp/Sarasa-Gothic/
         sarasa_version=$(curl -sSL https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "sarasa_version=${sarasa_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${sarasa_download_url}/v${sarasa_version}/SarasaMonoSC-TTF-${sarasa_version}.7z"
-        7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -otmp/Sarasa/
-        rm -rf ./Sarasa/*
-        mv -f ./tmp/Sarasa/SarasaMonoSC-Bold.ttf "./Sarasa/Sarasa Mono SC Bold.ttf"
-        mv -f ./tmp/Sarasa/SarasaMonoSC-Italic.ttf "./Sarasa/Sarasa Mono SC Italic.ttf"
-        mv -f ./tmp/Sarasa/SarasaMonoSC-Light.ttf "./Sarasa/Sarasa Mono SC Light.ttf"
-        mv -f ./tmp/Sarasa/SarasaMonoSC-Regular.ttf "./Sarasa/Sarasa Mono SC.ttf"
+        7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -otmp/Sarasa-Gothic/
+        rm -rf ./Sarasa-Gothic/*
+        mv -f ./tmp/Sarasa-Gothic/SarasaMonoSC-Bold.ttf "./Sarasa-Gothic/Sarasa Mono SC Bold.ttf"
+        mv -f ./tmp/Sarasa-Gothic/SarasaMonoSC-Italic.ttf "./Sarasa-Gothic/Sarasa Mono SC Italic.ttf"
+        mv -f ./tmp/Sarasa-Gothic/SarasaMonoSC-Light.ttf "./Sarasa-Gothic/Sarasa Mono SC Light.ttf"
+        mv -f ./tmp/Sarasa-Gothic/SarasaMonoSC-Regular.ttf "./Sarasa-Gothic/Sarasa Mono SC.ttf"
 
-    - name: zip `Sarasa` and push
+    - name: zip `Sarasa-Gothic` and push
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./Sarasa/Sarasa.zip ./Sarasa/
+          zip -qq -r ./Sarasa-Gothic/Sarasa-Gothic.zip ./Sarasa-Gothic/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更新 Sarasa 字体至 v${sarasa_version}" || exit 0
+        git add . && git commit -m "更新 Sarasa Gothic 字体至 v${sarasa_version}" || exit 0
         git push -f
 
-    - name: Download `LXGW`
+    - name: Download `LxgwWenKai`
       run: |
-        mkdir -p ./tmp/LXGW/
+        mkdir -p ./tmp/LxgwWenKai/
         lxgw_version=$(curl -sSL https://api.github.com/repos/lxgw/LxgwWenKai/releases/latest | grep 'tag_name' | sed 's/.*v/v/' | sed 's/".*//')
         echo "lxgw_version=${lxgw_version}" >> ${GITHUB_ENV}
-        rm -rf ./LXGW/*
-        curl -o "./LXGW/LXGW WenKai Bold.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Bold.ttf"
-        curl -o "./LXGW/LXGW WenKai Light.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Light.ttf"
-        curl -o "./LXGW/LXGW WenKai.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Regular.ttf"
+        rm -rf ./LxgwWenKai/*
+        curl -o "./LxgwWenKai/LXGW WenKai Bold.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Bold.ttf"
+        curl -o "./LxgwWenKai/LXGW WenKai Light.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Light.ttf"
+        curl -o "./LxgwWenKai/LXGW WenKai.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Regular.ttf"
 
-    - name: zip `LXGW` and push
+    - name: zip `LxgwWenKai` and push
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./LXGW/LXGW.zip ./LXGW/
+          zip -qq -r ./LxgwWenKai/LxgwWenKai.zip ./LxgwWenKai/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更新 LXGW 字体至 ${lxgw_version}" || exit 0
+        git add . && git commit -m "更新 LxgwWenKai 字体至 ${lxgw_version}" || exit 0
         git push -f
 
-    - name: Download `Source`
+    - name: Download `Source-Han-Serif`
       run: |
-        mkdir -p ./tmp/Source/
+        mkdir -p ./tmp/Source-Han-Serif/
         source_version=$(curl -sSL https://api.github.com/repos/adobe-fonts/source-han-serif/releases/latest | grep 'tag_name' | awk -F'"' '{print $4}')
         echo "source_version=${source_version}" >> ${GITHUB_ENV}
-        rm -rf ./Source/*
-        curl -o "./Source/Source Han Serif SC Bold.otf" -L "${source_download_url}/SourceHanSerifSC-Bold.otf"
-        curl -o "./Source/Source Han Serif SC Light.otf" -L "${source_download_url}/SourceHanSerifSC-Light.otf"
-        curl -o "./Source/Source Han Serif SC.otf" -L "${source_download_url}/SourceHanSerifSC-Regular.otf"
+        rm -rf ./Source-Han-Serif/*
+        curl -o "./Source-Han-Serif/Source Han Serif SC Bold.otf" -L "${source_download_url}/SourceHanSerifSC-Bold.otf"
+        curl -o "./Source-Han-Serif/Source Han Serif SC Light.otf" -L "${source_download_url}/SourceHanSerifSC-Light.otf"
+        curl -o "./Source-Han-Serif/Source Han Serif SC.otf" -L "${source_download_url}/SourceHanSerifSC-Regular.otf"
 
-    - name: zip `Source` and push
+    - name: zip `Source-Han-Serif` and push
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./Source/Source.zip ./Source/
+          zip -qq -r ./Source-Han-Serif/Source-Han-Serif.zip ./Source-Han-Serif/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更新 Source 字体至 v${source_version}" || exit 0
+        git add . && git commit -m "更新 Source Han Serif 字体至 v${source_version}" || exit 0
         git push -f
 
     - name: Purge jsDelivr CDN
@@ -145,21 +145,21 @@ jobs:
         for file in $(ls); do
           curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/MiSans/${file}"
         done
-        cd ../FiraCode/ || exit 1
+        cd ../FiraCode-Nerd/ || exit 1
         for file in $(ls); do
-          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/FiraCode/${file}"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/FiraCode-Nerd/${file}"
         done
-        cd ../Sarasa/ || exit 1
+        cd ../Sarasa-Gothic/ || exit 1
         for file in $(ls); do
-          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Sarasa/${file}"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Sarasa-Gothic/${file}"
         done
-        cd ../LXGW/ || exit 1
+        cd ../LxgwWenKai/ || exit 1
         for file in $(ls); do
-          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/LXGW/${file}"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/LxgwWenKai/${file}"
         done
-        cd ../Source/ || exit 1
+        cd ../Source-Han-Serif/ || exit 1
         for file in $(ls); do
-          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Source/${file}"
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Source-Han-Serif/${file}"
         done
 
     - name: Delete old workflow runs
