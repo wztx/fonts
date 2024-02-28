@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - "**.README.md"
+      - "**/.README.md"
 
 env:
   misans_download_url: https://hyperos.mi.com/font-download
