@@ -32,6 +32,12 @@ jobs:
         mv -f ./tmp/MiSans/otf/MiSans-Light.otf "./MiSans/MiSans Light.otf"
         mv -f ./tmp/MiSans/otf/MiSans-Regular.otf "./MiSans/MiSans.otf"
 
+    - name: zip directory to zip
+      uses: montudor/action-zip@v1
+      with:
+        args: |
+          zip -qq -r MiSans.zip ./MiSans/
+
     - name: Download FiraCode
       run: |
         mkdir -p ./tmp/FiraCode/
@@ -47,7 +53,6 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r MiSans.zip ./MiSans/
           zip -qq -r FiraCode.zip ./FiraCode/
 
     - name: Move files
