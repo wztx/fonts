@@ -10,6 +10,7 @@ on:
       - "README.md"
 
 env:
+  misans_download_url: https://hyperos.mi.com/font-download
   firacode_download_url: https://github.com/ryanoasis/nerd-fonts/releases/download
   sarasa_download_url: https://github.com/be5invis/Sarasa-Gothic/releases/download
   lxgw_download_url: https://github.com/lxgw/LxgwWenKai/releases/download
@@ -22,9 +23,32 @@ jobs:
     - name: Clone Repository
       uses: actions/checkout@main
 
+    - name: Download `MiSans`
+      run: |
+        echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
+        mkdir -p ./tmp/ ./MiSans/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
+        wget -P ./tmp/ "${misans_download_url}/MiSans.zip"
+        unzip -o ./tmp/MiSans.zip -d ./tmp/
+        rm -rf ./MiSans/*
+        mv -f ./tmp/MiSans/otf/MiSans-Bold.otf "./MiSans/MiSans Bold.otf"
+        mv -f ./tmp/MiSans/otf/MiSans-Light.otf "./MiSans/MiSans Light.otf"
+        mv -f ./tmp/MiSans/otf/MiSans-Regular.otf "./MiSans/MiSans.otf"
+
+    - name: zip `MiSans` and push
+      uses: montudor/action-zip@v1
+      with:
+        args: |
+          zip -qq -r ./MiSans/MiSans.zip ./MiSans/
+    - run: |
+        rm -f ./MiSans/*.otf
+        rm -rf ./tmp*
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add . && git commit -m "MiSans 字体更新于 ${update_version}" || exit 0
+        git push -f
+
     - name: Download `FiraCode`
       run: |
-        mkdir -p ./tmp/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
         mkdir -p ./tmp/FiraCode/
         firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
@@ -41,7 +65,6 @@ jobs:
         args: |
           zip -qq -r ./FiraCode/FiraCode.zip ./FiraCode/
     - run: |
-        # mv -f ./FiraCode.zip ./FiraCode/
         rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -56,6 +79,7 @@ jobs:
         echo "sarasa_version=${sarasa_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${sarasa_download_url}/v${sarasa_version}/SarasaMonoSC-TTF-${sarasa_version}.7z"
         7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -otmp/Sarasa/
+        rm -rf ./Sarasa/*
         mv -f ./tmp/Sarasa/SarasaMonoSC-Bold.ttf "./Sarasa/Sarasa Mono SC Bold.ttf"
         mv -f ./tmp/Sarasa/SarasaMonoSC-Italic.ttf "./Sarasa/Sarasa Mono SC Italic.ttf"
         mv -f ./tmp/Sarasa/SarasaMonoSC-Light.ttf "./Sarasa/Sarasa Mono SC Light.ttf"
@@ -65,9 +89,8 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r Sarasa.zip Sarasa
+          zip -qq -r ./Sarasa/Sarasa.zip ./Sarasa/
     - run: |
-        mv -f ./Sarasa.zip ./Sarasa/
         rm -f ./Sarasa/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -80,6 +103,7 @@ jobs:
         mkdir -p ./tmp/LXGW/
         lxgw_version=$(curl -sSL https://api.github.com/repos/lxgw/LxgwWenKai/releases/latest | grep 'tag_name' | sed 's/.*v/v/' | sed 's/".*//')
         echo "lxgw_version=${lxgw_version}" >> ${GITHUB_ENV}
+        rm -rf ./LXGW/*
         curl -o "./LXGW/LXGW WenKai Bold.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Bold.ttf"
         curl -o "./LXGW/LXGW WenKai Light.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Light.ttf"
         curl -o "./LXGW/LXGW WenKai.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Regular.ttf"
@@ -88,9 +112,8 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r LXGW.zip LXGW
+          zip -qq -r ./LXGW/LXGW.zip ./LXGW/
     - run: |
-        mv -f ./LXGW.zip ./LXGW/
         rm -f ./LXGW/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -103,6 +126,7 @@ jobs:
         mkdir -p ./tmp/Source/
         source_version=$(curl -sSL https://api.github.com/repos/adobe-fonts/source-han-serif/releases/latest | grep 'tag_name' | awk -F'"' '{print $4}')
         echo "source_version=${source_version}" >> ${GITHUB_ENV}
+        rm -rf ./Source/*
         curl -o "./Source/Source Han Serif SC Bold.otf" -L "${source_download_url}/SourceHanSerifSC-Bold.otf"
         curl -o "./Source/Source Han Serif SC Light.otf" -L "${source_download_url}/SourceHanSerifSC-Light.otf"
         curl -o "./Source/Source Han Serif SC.otf" -L "${source_download_url}/SourceHanSerifSC-Regular.otf"
@@ -111,9 +135,8 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r Source.zip Source
+          zip -qq -r ./Source/Source.zip ./Source/
     - run: |
-        mv -f ./Source.zip ./Source/
         rm -f ./Source/*.otf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -123,7 +146,11 @@ jobs:
 
     - name: Purge jsDelivr CDN
       run: |
-        cd ./FiraCode/ || exit 1
+        cd ./MiSans/ || exit 1
+        for file in $(ls); do
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/MiSans/${file}"
+        done
+        cd ../FiraCode/ || exit 1
         for file in $(ls); do
           curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/FiraCode/${file}"
         done
