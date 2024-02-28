@@ -13,7 +13,7 @@
     <td rowspan="4">粗体、细体和常规体</td>
   </tr>
   <tr>
-    <td>LGXW</td>
+    <td>LXGW</td>
     <td><a href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a></td>
   </tr>
   <tr>
