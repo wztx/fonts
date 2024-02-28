@@ -1,0 +1,42 @@
+name: Download fonts
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * *"
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Repository
+      uses: actions/checkout@main
+
+    - name: Download misans
+      run: |
+        echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
+        mkdir -p ./tmp/ ./MiSans/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/
+        wget -P ./tmp/ https://hyperos.mi.com/font-download/MiSans.zip
+        unzip -o ./tmp/MiSans.zip -d ./tmp/
+        mv -f ./tmp/MiSans/MiSans-Bold.otf ./MiSans/MiSans Bold.otf
+        mv -f ./tmp/MiSans/MiSans-Light.otf ./MiSans/MiSans Light.otf
+        mv -f ./tmp/MiSans/MiSans-Regular.otf ./MiSans/MiSans.otf
+        rm -rf ./tmp*
+
+    - name: Commit and push `MiSans`
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add . && git commit -m "MiSans 字体更新于 ${update_version}" || exit 0
+        git push -f
+
+    - name: Purge jsDelivr CDN
+      run: |
+        cd ./MiSans/ || exit 1
+        for file in $(ls); do
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/MiSans/${file}"
+        done
