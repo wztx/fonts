@@ -38,9 +38,9 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r FiraCode.zip FiraCode
+          zip -qq -r ./FiraCode/FiraCode.zip ./FiraCode/
     - run: |
-        mv -f ./FiraCode.zip ././FiraCode/
+        # mv -f ./FiraCode.zip ././FiraCode/
         rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
