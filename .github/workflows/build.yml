@@ -10,7 +10,6 @@ on:
       - "README.md"
 
 env:
-  misans_download_url: https://hyperos.mi.com/font-download
   firacode_download_url: https://github.com/ryanoasis/nerd-fonts/releases/download
   sarasa_download_url: https://github.com/be5invis/Sarasa-Gothic/releases/download
   lxgw_download_url: https://github.com/lxgw/LxgwWenKai/releases/download
@@ -23,32 +22,9 @@ jobs:
     - name: Clone Repository
       uses: actions/checkout@main
 
-    - name: Download `MiSans`
-      run: |
-        echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
-        mkdir -p ./tmp/ ./MiSans/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
-        curl -o ./tmp/MiSans.zip -L "${misans_download_url}/MiSans.zip"
-        unzip -o ./tmp/MiSans.zip -d ./tmp/
-        mv -f ./tmp/MiSans/otf/MiSans-Bold.otf "./MiSans/MiSans Bold.otf"
-        mv -f ./tmp/MiSans/otf/MiSans-Light.otf "./MiSans/MiSans Light.otf"
-        mv -f ./tmp/MiSans/otf/MiSans-Regular.otf "./MiSans/MiSans.otf"
-
-    - name: zip `MiSans` and push
-      uses: montudor/action-zip@v1
-      with:
-        args: |
-          zip -qq -r MiSans.zip ./MiSans/
-    - run: |
-        cp -f ./MiSans.zip ./MiSans/
-        rm -f ./MiSans/*.otf
-        rm -rf ./tmp*
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "MiSans 字体更新于 ${update_version}" || exit 0
-        git push -f
-
     - name: Download `FiraCode`
       run: |
+        mkdir -p ./tmp/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
         mkdir -p ./tmp/FiraCode/
         firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
@@ -64,7 +40,7 @@ jobs:
         args: |
           zip -qq -r FiraCode.zip ./FiraCode/
     - run: |
-        cp -f ./FiraCode.zip ./FiraCode/
+        mv -f ./FiraCode.zip ./FiraCode/
         rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -90,7 +66,7 @@ jobs:
         args: |
           zip -qq -r Sarasa.zip ./Sarasa/
     - run: |
-        cp -f ./Sarasa.zip ./Sarasa/
+        mv -f ./Sarasa.zip ./Sarasa/
         rm -f ./Sarasa/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -113,7 +89,7 @@ jobs:
         args: |
           zip -qq -r LXGW.zip ./LXGW/
     - run: |
-        cp -f ./LXGW.zip ./LXGW/
+        mv -f ./LXGW.zip ./LXGW/
         rm -f ./LXGW/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -136,7 +112,7 @@ jobs:
         args: |
           zip -qq -r Source.zip ./Source/
     - run: |
-        cp -f ./Source.zip ./Source/
+        mv -f ./Source.zip ./Source/
         rm -f ./Source/*.otf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -146,11 +122,7 @@ jobs:
 
     - name: Purge jsDelivr CDN
       run: |
-        cd ./MiSans/ || exit 1
-        for file in $(ls); do
-          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/MiSans/${file}"
-        done
-        cd ../FiraCode/ || exit 1
+        cd ./FiraCode/ || exit 1
         for file in $(ls); do
           curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/FiraCode/${file}"
         done
