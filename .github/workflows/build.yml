@@ -52,7 +52,7 @@ jobs:
         mkdir -p ./tmp/FiraCode/
         firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
-        wget -P ./tmp/ "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
+        curl -o ./tmp/FiraCode.zip -L "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
         unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode/
         mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Bold.ttf "./FiraCode/FiraCode Nerd Font Mono Bold.ttf"
         mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Light.ttf "./FiraCode/FiraCode Nerd Font Mono Light.ttf"
