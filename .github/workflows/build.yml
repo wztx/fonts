@@ -38,9 +38,10 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r FiraCode.zip ./FiraCode/
+          zip -qq -r FiraCode.zip FiraCode
     - run: |
-        rm -f ./*.zip ./FiraCode/*.ttf
+        mv -f ./FiraCode.zip ././FiraCode/
+        rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -63,9 +64,10 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r Sarasa.zip ./Sarasa/
+          zip -qq -r Sarasa.zip Sarasa
     - run: |
-        rm -f ./*.zip ./Sarasa/*.ttf
+        mv -f ./Sarasa.zip ./Sarasa/
+        rm -f ./Sarasa/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -85,9 +87,10 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r LXGW.zip ./LXGW/
+          zip -qq -r LXGW.zip LXGW
     - run: |
-        rm -f ./*.zip ./LXGW/*.ttf
+        mv -f ./LXGW.zip ./LXGW/
+        rm -f ./LXGW/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -107,9 +110,10 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r Source.zip ./Source/
+          zip -qq -r Source.zip Source
     - run: |
-        rm -f ./*.zip ./Source/*.otf
+        mv -f ./Source.zip ./Source/
+        rm -f ./Source/*.otf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
