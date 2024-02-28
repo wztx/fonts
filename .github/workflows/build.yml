@@ -102,9 +102,9 @@ jobs:
         mkdir -p ./tmp/Source/
         source_version=$(curl -sSL https://api.github.com/repos/adobe-fonts/source-han-serif/releases/latest | grep 'tag_name' | awk -F'"' '{print $4}')
         echo "source_version=${source_version}" >> ${GITHUB_ENV}
-        curl -o "./Source/Source Han Serif SC Bold.otf" -L "${source_download_url}/SourceHanSerifSC-Bold.otf
-        curl -o "./Source/Source Han Serif SC Light.otf" -L "${source_download_url}/SourceHanSerifSC-Light.otf
-        curl -o "./Source/Source Han Serif SC.otf" -L "${source_download_url}/SourceHanSerifSC-Regular.otf
+        curl -o "./Source/Source Han Serif SC Bold.otf" -L "${source_download_url}/SourceHanSerifSC-Bold.otf"
+        curl -o "./Source/Source Han Serif SC Light.otf" -L "${source_download_url}/SourceHanSerifSC-Light.otf"
+        curl -o "./Source/Source Han Serif SC.otf" -L "${source_download_url}/SourceHanSerifSC-Regular.otf"
 
     - name: zip `Source` and push
       uses: montudor/action-zip@v1
