@@ -27,7 +27,7 @@ jobs:
       run: |
         echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
         mkdir -p ./tmp/ ./MiSans/ ./FiraCode/ ./Sarasa/ ./LXGW/ ./Source/ ./Fonts
-        wget --chunked=90M -P ./tmp/ "${misans_download_url}/MiSans.zip"
+        curl -o ./tmp/MiSans.zip -L "${misans_download_url}/MiSans.zip"
         unzip -o ./tmp/MiSans.zip -d ./tmp/
         mv -f ./tmp/MiSans/otf/MiSans-Bold.otf "./MiSans/MiSans Bold.otf"
         mv -f ./tmp/MiSans/otf/MiSans-Light.otf "./MiSans/MiSans Light.otf"
@@ -52,7 +52,7 @@ jobs:
         mkdir -p ./tmp/FiraCode/
         firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
-        curl -o ./tmp/FiraCode.zip -L "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
+        wget -P ./tmp/ "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
         unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode/
         mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Bold.ttf "./FiraCode/FiraCode Nerd Font Mono Bold.ttf"
         mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Light.ttf "./FiraCode/FiraCode Nerd Font Mono Light.ttf"
