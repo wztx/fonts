@@ -54,8 +54,7 @@ jobs:
         sarasa_version=$(curl -sSL https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
         echo "sarasa_version=${sarasa_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${sarasa_download_url}/v${sarasa_version}/SarasaMonoSC-TTF-${sarasa_version}.7z"
-        sudo apt-get install -y p7zip-full
-        7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -o ./tmp/Sarasa/
+        7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -otmp/Sarasa/
         mv -f ./tmp/Sarasa/SarasaMonoSC-Bold.ttf "./Sarasa/Sarasa Mono SC Bold.ttf"
         mv -f ./tmp/Sarasa/SarasaMonoSC-Italic.ttf "./Sarasa/Sarasa Mono SC Italic.ttf"
         mv -f ./tmp/Sarasa/SarasaMonoSC-Light.ttf "./Sarasa/Sarasa Mono SC Light.ttf"
