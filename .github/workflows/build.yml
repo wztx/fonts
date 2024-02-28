@@ -69,7 +69,7 @@ jobs:
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更到 FiraCode 字体至 v${firacode_version}" || exit 0
+        git add . && git commit -m "更新 FiraCode 字体至 v${firacode_version}" || exit 0
         git push -f
 
     - name: Download `Sarasa`
@@ -95,7 +95,7 @@ jobs:
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更到 Sarasa 字体至 v${sarasa_version}" || exit 0
+        git add . && git commit -m "更新 Sarasa 字体至 v${sarasa_version}" || exit 0
         git push -f
 
     - name: Download `LXGW`
@@ -118,7 +118,7 @@ jobs:
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更到 LXGW 字体至 ${lxgw_version}" || exit 0
+        git add . && git commit -m "更新 LXGW 字体至 ${lxgw_version}" || exit 0
         git push -f
 
     - name: Download `Source`
@@ -141,7 +141,7 @@ jobs:
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
-        git add . && git commit -m "更到 Source 字体至 v${source_version}" || exit 0
+        git add . && git commit -m "更新 Source 字体至 v${source_version}" || exit 0
         git push -f
 
     - name: Purge jsDelivr CDN
