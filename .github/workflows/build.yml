@@ -30,18 +30,18 @@ jobs:
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
         unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode/
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Bold.ttf "./FiraCode/FiraCode Nerd Font Mono Bold.ttf"
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Light.ttf "./FiraCode/FiraCode Nerd Font Mono Light.ttf"
-        mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Regular.ttf "./FiraCode/FiraCode Nerd Font Mono.ttf"
+        # mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Bold.ttf "./FiraCode/FiraCode Nerd Font Mono Bold.ttf"
+        # mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Light.ttf "./FiraCode/FiraCode Nerd Font Mono Light.ttf"
+        # mv -f ./tmp/FiraCode/FiraCodeNerdFontMono-Regular.ttf "./FiraCode/FiraCode Nerd Font Mono.ttf"
 
     - name: zip `FiraCode` and push
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./FiraCode/FiraCode.zip ./FiraCode/
+          zip -qq -r ./FiraCode/FiraCode.zip ./tmp/FiraCode/
     - run: |
         # mv -f ./FiraCode.zip ././FiraCode/
-        rm -f ./FiraCode/*.ttf
+        # rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
