@@ -40,7 +40,6 @@ jobs:
         args: |
           zip -qq -r ./MiSans/MiSans.zip ./MiSans/
     - run: |
-        rm -f ./MiSans/*.otf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -65,7 +64,6 @@ jobs:
         args: |
           zip -qq -r ./FiraCode/FiraCode.zip ./FiraCode/
     - run: |
-        rm -f ./FiraCode/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -91,7 +89,6 @@ jobs:
         args: |
           zip -qq -r ./Sarasa/Sarasa.zip ./Sarasa/
     - run: |
-        rm -f ./Sarasa/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -114,7 +111,6 @@ jobs:
         args: |
           zip -qq -r ./LXGW/LXGW.zip ./LXGW/
     - run: |
-        rm -f ./LXGW/*.ttf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
@@ -137,7 +133,6 @@ jobs:
         args: |
           zip -qq -r ./Source/Source.zip ./Source/
     - run: |
-        rm -f ./Source/*.otf
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
