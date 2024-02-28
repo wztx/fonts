@@ -15,21 +15,21 @@
     <td rowspan="2">.otf</td>
   </tr>
   <tr>
-    <td>Source</td>
+    <td>Source-Han-Serif</td>
     <td><a href="https://github.com/adobe-fonts/source-han-serif">思源宋体（Simplified Chinese）</a></td>
   </tr>
   <tr>
-    <td>FiraCode</td>
+    <td>FiraCode-Nerd</td>
     <td><a href="https://github.com/ryanoasis/nerd-fonts">FiraCode Nerd</a></td>
     <td>.ttf</td>
   </tr>
   <tr>
-    <td>LXGW</td>
+    <td>LxgwWenKai</td>
     <td><a href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a></td>
     <td>.ttf</td>
   </tr>
   <tr>
-    <td>Sarasa</td>
+    <td>Sarasa-Gothic</td>
     <td><a href="https://github.com/be5invis/Sarasa-Gothic">更纱黑体（SC + hinted）</a></td>
     <td>粗体、细体、斜体和常规体</td>
     <td>.ttf</td>
