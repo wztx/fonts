@@ -26,7 +26,7 @@ jobs:
     - name: Download `MiSans`
       run: |
         echo "update_version=$(date -d '+8 hours' +%Y-%m-%d)" >> ${GITHUB_ENV}
-        mkdir -p ./tmp/ ./MiSans/ ./FiraCode-Nerd/ ./Sarasa-Gothic/ ./LxgwWenKai/ ./Source-Han-Serif/
+        mkdir -p ./tmp/ ./MiSans/ ./FiraCode-Nerd/ ./Sarasa-Gothic/ ./LxgwWenKai/ ./Source-Han-Serif/ ./Fonts/
         wget -P ./tmp/ "${misans_download_url}/MiSans.zip"
         unzip -o ./tmp/MiSans.zip -d ./tmp/
         rm -rf ./MiSans/*
@@ -38,7 +38,7 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./MiSans/MiSans.zip ./MiSans/
+          zip -qq -r ./Fonts/MiSans.zip ./MiSans/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -62,7 +62,7 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./FiraCode-Nerd/FiraCode-Nerd.zip ./FiraCode-Nerd/
+          zip -qq -r ./Fonts/FiraCode-Nerd.zip ./FiraCode-Nerd/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -87,7 +87,7 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./Sarasa-Gothic/Sarasa-Gothic.zip ./Sarasa-Gothic/
+          zip -qq -r ./Fonts/Sarasa-Gothic.zip ./Sarasa-Gothic/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -109,7 +109,7 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./LxgwWenKai/LxgwWenKai.zip ./LxgwWenKai/
+          zip -qq -r ./Fonts/LxgwWenKai.zip ./LxgwWenKai/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -131,7 +131,7 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: |
-          zip -qq -r ./Source-Han-Serif/Source-Han-Serif.zip ./Source-Han-Serif/
+          zip -qq -r ./Fonts/Source-Han-Serif.zip ./Source-Han-Serif/
     - run: |
         rm -rf ./tmp*
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -160,6 +160,10 @@ jobs:
         cd ../Source-Han-Serif/ || exit 1
         for file in $(ls); do
           curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Source-Han-Serif/${file}"
+        done
+        cd ../Fonts/ || exit 1
+        for file in $(ls); do
+          curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/Fonts/${file}"
         done
 
     - name: Delete old workflow runs
