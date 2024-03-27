@@ -104,15 +104,30 @@ jobs:
         git add ./Source-Han-Serif/* && git commit -m "更新 Source Han Serif 字体至 v${source_version}" || exit 0
         git push -f
 
-    - name: Zip fonts and push
+    - name: Zip `MiSans` and push
       uses: montudor/action-zip@v1
       with:
-        args: |
-          zip -qq -r ./Fonts/MiSans.zip ./MiSans/
-          zip -qq -r ./Fonts/FiraCode-Nerd.zip ./FiraCode-Nerd/
-          zip -qq -r ./Fonts/Sarasa-Gothic.zip ./Sarasa-Gothic/
-          zip -qq -r ./Fonts/LxgwWenKai.zip ./LxgwWenKai/
-          zip -qq -r ./Fonts/Source-Han-Serif.zip ./Source-Han-Serif/
+        args: zip -qq -r ./Fonts/MiSans.zip ./MiSans/
+
+    - name: Zip `FiraCode-Nerd` and push
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r ./Fonts/FiraCode-Nerd.zip ./FiraCode-Nerd/
+
+    - name: Zip `Sarasa-Gothic` and push
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r ./Fonts/Sarasa-Gothic.zip ./Sarasa-Gothic/
+          
+    - name: Zip `LxgwWenKai` and push
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r ./Fonts/LxgwWenKai.zip ./LxgwWenKai/
+          
+    - name: Zip `Source-Han-Serif` and push
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r ./Fonts/Source-Han-Serif.zip ./Source-Han-Serif/
     - run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
