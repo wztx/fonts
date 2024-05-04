@@ -3,7 +3,7 @@
 **文件名称与字体来源、包含字重和字体格式对应关系如下表：**
 <table>
   <tr>
-    <td><b>文件名称</b></td>
+    <td align="center"><b>文件名称</b></td>
     <td align="center"><b>字体来源</b></td>
     <td align="center"><b>包含字重</b></td>
     <td align="center"><b>字体格式</b></td>
