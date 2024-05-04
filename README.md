@@ -21,17 +21,15 @@
   <tr>
     <td>FiraCode-Nerd</td>
     <td><a href="https://github.com/ryanoasis/nerd-fonts">FiraCode Nerd</a></td>
-    <td>.ttf</td>
+    <td rowspan="3">.ttf</td>
   </tr>
   <tr>
     <td>LxgwWenKai</td>
     <td><a href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a></td>
-    <td>.ttf</td>
   </tr>
   <tr>
     <td>Sarasa-Gothic</td>
     <td><a href="https://github.com/be5invis/Sarasa-Gothic">更纱黑体（SC + hinted）</a></td>
     <td>粗体、细体、斜体和常规体</td>
-    <td>.ttf</td>
   </tr>
 </table>
