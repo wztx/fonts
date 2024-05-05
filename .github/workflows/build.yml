@@ -42,7 +42,7 @@ jobs:
     - name: Download and push `FiraCode-Nerd`
       run: |
         mkdir -p ./tmp/FiraCode-Nerd/
-        firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
+        firacode_version=$(curl -sSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep 'tag_name' | sed -e 's/.*v//' -e 's/".*//')
         echo "firacode_version=${firacode_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${firacode_download_url}/v${firacode_version}/FiraCode.zip"
         unzip -o ./tmp/FiraCode.zip -d ./tmp/FiraCode-Nerd/
@@ -59,7 +59,7 @@ jobs:
     - name: Download and push `Sarasa-Gothic`
       run: |
         mkdir -p ./tmp/Sarasa-Gothic/
-        sarasa_version=$(curl -sSL https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest | grep 'tag_name' | sed 's/.*v//' | sed 's/".*//')
+        sarasa_version=$(curl -sSL https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest | grep 'tag_name' | sed -e 's/.*v//' -e 's/".*//')
         echo "sarasa_version=${sarasa_version}" >> ${GITHUB_ENV}
         wget -P ./tmp/ "${sarasa_download_url}/v${sarasa_version}/SarasaMonoSC-TTF-${sarasa_version}.7z"
         7z x "./tmp/SarasaMonoSC-TTF-${sarasa_version}.7z" -otmp/Sarasa-Gothic/
@@ -77,7 +77,7 @@ jobs:
     - name: Download and push `LxgwWenKai`
       run: |
         mkdir -p ./tmp/LxgwWenKai/
-        lxgw_version=$(curl -sSL https://api.github.com/repos/lxgw/LxgwWenKai/releases/latest | grep 'tag_name' | sed 's/.*v/v/' | sed 's/".*//')
+        lxgw_version=$(curl -sSL https://api.github.com/repos/lxgw/LxgwWenKai/releases/latest | grep 'tag_name' | sed -e 's/.*v/v/' -e 's/".*//')
         echo "lxgw_version=${lxgw_version}" >> ${GITHUB_ENV}
         rm -rf ./LxgwWenKai/*
         curl -o "./LxgwWenKai/LXGW WenKai Bold.ttf" -L "${lxgw_download_url}/${lxgw_version}/LXGWWenKai-Bold.ttf"
